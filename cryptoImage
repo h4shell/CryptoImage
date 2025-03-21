@@ -29,7 +29,7 @@ if [ $# -eq 0 ]; then
   if [ -z $imgfile ]; then
     echo "${BLUE}${enc}${RESET}"
   else
-    exiftool -Title=$enc $imgfile
+    exiftool -Comment=$enc $imgfile
   fi
 
 else

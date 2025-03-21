@@ -1,16 +1,33 @@
 #!/bin/bash
 
+# Definizione dei colori standard usando tput
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+RESET=$(tput sgr0)
+
+
 if [ $# -eq 0 ]; then
-  echo "Nessun parametro specificato."
-  echo "inserire il segreto: "
+  echo
+  echo "${BOLD}${MAGENTA}─────────────────────────────"
+  echo "inserire il ${GREEN}segreto${RESET}:"
   read secret
-  echo "inserire la password: "
+  echo "${BOLD}${MAGENTA}─────────────────────────────"
+  echo "inserire la ${GREEN}password${RESET}:"
   read pwd
-  echo "inserisci il file di immagine: "
+  echo
+  ls *.jpg *.jpeg 2>/dev/null
+  echo "${BOLD}${MAGENTA}─────────────────────────────"
+  echo "inserisci il ${GREEN}file di immagine${RESET} (opzionale): "
   read imgfile
   enc=$(echo $secret | gpg --symmetric --cipher-algo AES256 --batch --passphrase $pwd --armor | base64 -w 0)
   if [ -z $imgfile ]; then
-    echo $enc
+    echo "${BLUE}${enc}${RESET}"
   else
     exiftool -Title=$enc $imgfile
   fi
